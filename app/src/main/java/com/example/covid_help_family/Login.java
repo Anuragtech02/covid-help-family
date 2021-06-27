@@ -49,7 +49,6 @@ public class Login extends AppCompatActivity {
         emailSignIn = findViewById(R.id.signInBtn);
         emailLoginProgress = findViewById(R.id.emailLoginProgress);
         errorText = findViewById(R.id.errorText);
-        loginTextView = findViewById(R.id.createAccount);
 
         showPassword = findViewById(R.id.passwordVisible);
         hidePassword = findViewById(R.id.passwordInvisible);
@@ -136,7 +135,7 @@ public class Login extends AppCompatActivity {
 
         String check = (email != null) && (email.length() > 1) ? "email" : "phone";
 
-        db.collection("users")
+        db.collection("patients")
                 .whereEqualTo(check, email != null && email.length() > 1 ? email : phone)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -179,7 +178,7 @@ public class Login extends AppCompatActivity {
         final SharedPreferences.Editor editorDetails = userDetails.edit();
 
 
-        db.collection("users")
+        db.collection("patients")
                 .whereEqualTo(check, email != null && email.length() > 1 ? email : phone)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {

@@ -7,4 +7,7 @@
     <string name="password">Password</string>
     <string name="signin">SignIn</string>
     <string name="error">Error</string>
+    <string name="patient_name">Patient Name</string>
+    <string name="spo2">SPO2</string>
+    <string name="pulse">PULSE</string>
 </resources>
