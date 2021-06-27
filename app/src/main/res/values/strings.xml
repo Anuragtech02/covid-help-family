@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">covid_help_family</string>
+    <string name="name">CovidHelp</string>
+    <string name="name1">Family</string>
+    <string name="name2">Covid Help Family</string>
+    <string name="login">Login</string>
+    <string name="password">Password</string>
+</resources>
