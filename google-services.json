@@ -1,0 +1,72 @@
+{
+  "project_info": {
+    "project_number": "843073804063",
+    "firebase_url": "https://covid-help-iet-default-rtdb.firebaseio.com",
+    "project_id": "covid-help-iet",
+    "storage_bucket": "covid-help-iet.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:843073804063:android:862270d768836b49b4c22a",
+        "android_client_info": {
+          "package_name": "com.anurag.covidhelp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "843073804063-4u230pvil257882o3rhofu9o8lbe5lqm.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.anurag.covidhelp",
+            "certificate_hash": "0357075ca958a642fc22df5455e274fbb5d4c28a"
+          }
+        },
+        {
+          "client_id": "843073804063-ankjo8ndc1uh4deas194a2050m9vknu9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.anurag.covidhelp",
+            "certificate_hash": "86e7a340103c58ed091111fd2eeb6d19df486aa9"
+          }
+        },
+        {
+          "client_id": "843073804063-e8o68kgoocbg66ac12l79rt7hmomggo5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.anurag.covidhelp",
+            "certificate_hash": "381f4b6a227b258298282f82ef3f16e2e4e60892"
+          }
+        },
+        {
+          "client_id": "843073804063-sgtb81dh7hu4a04e27pjtr0vj7jj90an.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.anurag.covidhelp",
+            "certificate_hash": "f4f67c091cdeb08fd9dd80a3f44ae71455a3f0b8"
+          }
+        },
+        {
+          "client_id": "843073804063-l9shvt039up2urp8581q8m6fbddlla14.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCv40MDpWaTBPWeUHRKM-tBklbfWsZmMZw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "843073804063-l9shvt039up2urp8581q8m6fbddlla14.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
