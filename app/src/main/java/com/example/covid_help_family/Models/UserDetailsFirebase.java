@@ -8,5 +8,4 @@ public class UserDetailsFirebase {
     public String uid;
     public Boolean isSharingData;
     public Boolean hasDailyLogs;
-
 }

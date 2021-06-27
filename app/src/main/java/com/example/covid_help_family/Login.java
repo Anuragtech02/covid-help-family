@@ -17,13 +17,17 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.covid_help_family.Models.PatientModel;
 import com.example.covid_help_family.Models.UserDetailsFirebase;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentChange;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.List;
@@ -131,12 +135,9 @@ public class Login extends AppCompatActivity {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
         String email = mCurrentUser.getEmail();
-        String phone = mCurrentUser.getPhoneNumber();
-
-        String check = (email != null) && (email.length() > 1) ? "email" : "phone";
 
         db.collection("patients")
-                .whereEqualTo(check, email != null && email.length() > 1 ? email : phone)
+                .whereEqualTo("email", email)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -145,12 +146,34 @@ public class Login extends AppCompatActivity {
                             if(task.getResult().isEmpty()){
                                 Toast.makeText(Login.this, "No user found", Toast.LENGTH_SHORT).show();
                             }else{
-//                                Toast.makeText(Signin.this, "Yes found", Toast.LENGTH_SHORT).show();
-                                List<UserDetailsFirebase> userDetailsList = task.getResult().toObjects(UserDetailsFirebase.class);
-                                for (UserDetailsFirebase userDetails : userDetailsList) {
-                                    SharedPreferences.Editor regEditor = isRegistered.edit();
+//                                DocumentSnapshot ds = task.getResult();
+                               // List<PatientModel> patients = task.getResult().toObjects(PatientModel.class);
+                                PatientModel patient = new PatientModel("name","bed","Hospital",23 );
+                                for (QueryDocumentSnapshot doc: task.getResult()){
+                                    if(doc.getData().containsValue(email)){
+                                        patient.name = String.valueOf(doc.getData().get("name"));
+                                        patient.bed = String.valueOf(doc.getData().get("bed"));
+                                        patient.spo2 = Integer.parseInt(String.valueOf(doc.getData().get("spo2")));
+                                        patient.pulse = Integer.parseInt(String.valueOf(doc.getData().get("pulse")));
+                                        patient.sysBp = Integer.parseInt(String.valueOf(doc.getData().get("sysBp")));
+                                        patient.diaBp = Integer.parseInt(String.valueOf(doc.getData().get("diaBp")));
+                                        patient.glucoFast = Integer.parseInt(String.valueOf(doc.getData().get("glucoFast")));
+                                        patient.glucoRandom = Integer.parseInt(String.valueOf(doc.getData().get("glucoRandom")));
 
+                                    }
                                 }
+                              //  PatientModel patient = patients.get(0);
+                                Intent intent = new Intent(Login.this, Dashboard.class);
+                                intent.putExtra("patientName", patient.name);
+                                intent.putExtra("patientBed", patient.bed);
+                                intent.putExtra("spo2", patient.spo2);
+                                intent.putExtra("pulse", patient.pulse);
+                                intent.putExtra("sysBp", patient.sysBp);
+                                intent.putExtra("diaBp", patient.diaBp);
+                                intent.putExtra("glucoFast", patient.glucoFast);
+                                intent.putExtra("glucoRandom", patient.glucoRandom);
+                                startActivity(intent);
+                                finish();
                             }
                         } else {
                             Toast.makeText(Login.this, "Some error occurred", Toast.LENGTH_SHORT).show();
@@ -162,44 +185,9 @@ public class Login extends AppCompatActivity {
     public void sendUserToHome() {
 
         Intent intent = new Intent(Login.this, Dashboard.class);
-        getUid(mAuth.getCurrentUser());
+
         emailLoginProgress.setVisibility(View.GONE);
         startActivity(intent);
         finish();
-    }
-
-    public void getUid(FirebaseUser mCurrentUser){
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        String email = mCurrentUser.getEmail();
-        String phone = mCurrentUser.getPhoneNumber();
-        String check = (email != null) && (email.length() > 1) ? "email" : "phone";
-
-        userDetails = getSharedPreferences("userDetails", MODE_PRIVATE);
-        final SharedPreferences.Editor editorDetails = userDetails.edit();
-
-
-        db.collection("patients")
-                .whereEqualTo(check, email != null && email.length() > 1 ? email : phone)
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            if(task.getResult().isEmpty()){
-                                Toast.makeText(Login.this, "User not found", Toast.LENGTH_SHORT).show();
-                            }else{
-                                Toast.makeText(Login.this, "Yes found", Toast.LENGTH_SHORT).show();
-                                List<UserDetailsFirebase> userDetailsList = task.getResult().toObjects(UserDetailsFirebase.class);
-                                for (UserDetailsFirebase userDetails : userDetailsList) {
-                                    editorDetails.putString("uid", userDetails.uid);
-                                    editorDetails.putBoolean("hasDailyLogs", userDetails.hasDailyLogs);
-                                    editorDetails.apply();
-                                }
-                            }
-                        } else {
-                            Toast.makeText(Login.this, "Some error occurred", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
     }
 }
